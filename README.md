@@ -46,7 +46,11 @@ To ensure industry-standard security, this project utilizes a **Backend Proxy** 
 
 1.  **Clone the Repository:**
     ```bash
-    git clone [https://github.com/DevBySuraj/CodeAlpha_Language_Translation_Tool.git](https://github.com/DevBySuraj/CodeAlpha_Language_Translation_Tool.git)
+    git clone https://github.com/DevBySuraj/CodeAlpha_Language_Translation_Tool.git
+    ```
+
+    ----
+    ```
     cd CodeAlpha_Language_Translation_Tool
     ```
 
