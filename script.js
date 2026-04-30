@@ -1,25 +1,25 @@
-const inputEl    = document.getElementById('inputText');
-const outputEl   = document.getElementById('outputText');
-const outputText2= document.getElementById('outputText2');
-const srcLangEl  = document.getElementById('srcLang');
-const tgtLangEl  = document.getElementById('tgtLang');
+const inputEl = document.getElementById('inputText');
+const outputEl = document.getElementById('outputText');
+const outputText2 = document.getElementById('outputText2');
+const srcLangEl = document.getElementById('srcLang');
+const tgtLangEl = document.getElementById('tgtLang');
 const tgtLang2El = document.getElementById('tgtLang2');
 const translateBtn = document.getElementById('translateBtn');
-const btnLabel   = document.getElementById('btnLabel');
+const btnLabel = document.getElementById('btnLabel');
 const charCountEl = document.getElementById('charCount');
-const statusEl   = document.getElementById('status');
-const speakBtn   = document.getElementById('speakBtn');
-const speakBtn2  = document.getElementById('speakBtn2');
-const swapBtn    = document.getElementById('swapBtn');
-const clearBtn   = document.getElementById('clearBtn');
+const statusEl = document.getElementById('status');
+const speakBtn = document.getElementById('speakBtn');
+const speakBtn2 = document.getElementById('speakBtn2');
+const swapBtn = document.getElementById('swapBtn');
+const clearBtn = document.getElementById('clearBtn');
 const detectedLabel = document.getElementById('detectedLabel');
 const copyInputBtn = document.getElementById('copyInputBtn');
 const copyOutputBtn = document.getElementById('copyBtn');
-const copyBtn2   = document.getElementById('copyBtn2');
+const copyBtn2 = document.getElementById('copyBtn2');
 const addCompareBtn = document.getElementById('addCompareBtn');
-const tgtPanel2  = document.getElementById('tgtPanel2');
+const tgtPanel2 = document.getElementById('tgtPanel2');
 const downloadBtn = document.getElementById('downloadBtn');
-const downloadBtn2= document.getElementById('downloadBtn2');
+const downloadBtn2 = document.getElementById('downloadBtn2');
 
 const uploadBtn = document.getElementById('uploadBtn');
 const imageUpload = document.getElementById('imageUpload');
@@ -54,8 +54,8 @@ function saveHistory(src, tgt1, text, trans1, tgt2, trans2) {
 
 function getLanguageName(code) {
     if (!code) return 'Auto-detect';
-    const option = document.querySelector(`#srcLang option[value="${code}"]`) || 
-                   document.querySelector(`#tgtLang option[value="${code}"]`);
+    const option = document.querySelector(`#srcLang option[value="${code}"]`) ||
+        document.querySelector(`#tgtLang option[value="${code}"]`);
     return option ? option.textContent : code;
 }
 
@@ -66,7 +66,7 @@ function renderHistory() {
         div.className = 'history-item';
         let langs = `${getLanguageName(item.src)} → ${getLanguageName(item.tgt1)}`;
         if (item.tgt2) langs += ` & ${getLanguageName(item.tgt2)}`;
-        
+
         div.innerHTML = `
             <div class="history-langs">${langs}</div>
             <div class="history-text" title="${item.text.replace(/"/g, '&quot;')}">${item.text}</div>
@@ -85,7 +85,7 @@ function loadHistoryItem(item) {
     outputEl.className = 'output-area';
     lastTranslation = item.trans1;
     charCountEl.textContent = item.text.length;
-    
+
     if (item.tgt2) {
         tgtLang2El.value = item.tgt2;
         tgtLang2El.classList.remove('hidden');
@@ -136,7 +136,7 @@ function downloadTxt(text, filename) {
 
 function copyToClipboard(text, btnElement, appendFooter = false) {
     if (!text || text === 'Translation will appear here…') return;
-    
+
     let finalText = text;
     if (appendFooter) {
         finalText += '\n\n— Translated by Trans[lator]';
@@ -180,7 +180,7 @@ if (SpeechRecognition) {
         const transcript = event.results[0][0].transcript;
         inputEl.value = transcript;
         charCountEl.textContent = transcript.length;
-        translateBtn.click(); 
+        translateBtn.click();
     };
 
     recognition.onend = () => { micBtn.textContent = '🎤'; };
@@ -240,7 +240,7 @@ swapBtn.addEventListener('click', () => {
         outputEl.textContent = 'Translation will appear here…';
         outputEl.className = 'output-area empty';
         lastTranslation = '';
-        if(compareActive) {
+        if (compareActive) {
             outputText2.textContent = 'Translation will appear here…';
             outputText2.className = 'output-area empty';
             lastTranslation2 = '';
@@ -250,11 +250,11 @@ swapBtn.addEventListener('click', () => {
 
 // --- Text-to-Speech ---
 const langMapSpeech = {
-    en:'en-US', hi:'hi-IN', pa:'pa-IN', es:'es-ES', fr:'fr-FR',
-    de:'de-DE', it:'it-IT', pt:'pt-PT', ru:'ru-RU', 'zh-Hans':'zh-CN',
-    'zh-Hant':'zh-TW', ja:'ja-JP', ko:'ko-KR', ar:'ar-SA', tr:'tr-TR',
-    nl:'nl-NL', pl:'pl-PL', bn:'bn-IN', ur:'ur-PK', th:'th-TH',
-    vi:'vi-VN', sv:'sv-SE', el:'el-GR'
+    en: 'en-US', hi: 'hi-IN', pa: 'pa-IN', es: 'es-ES', fr: 'fr-FR',
+    de: 'de-DE', it: 'it-IT', pt: 'pt-PT', ru: 'ru-RU', 'zh-Hans': 'zh-CN',
+    'zh-Hant': 'zh-TW', ja: 'ja-JP', ko: 'ko-KR', ar: 'ar-SA', tr: 'tr-TR',
+    nl: 'nl-NL', pl: 'pl-PL', bn: 'bn-IN', ur: 'ur-PK', th: 'th-TH',
+    vi: 'vi-VN', sv: 'sv-SE', el: 'el-GR'
 };
 
 function doSpeak(text, langCode, btn) {
@@ -329,7 +329,7 @@ async function executeTranslation() {
             lastTranslation2 = data2.translation;
             outputText2.textContent = lastTranslation2;
             outputText2.className = 'output-area';
-            if(!detected) detected = data2.detectedLanguage;
+            if (!detected) detected = data2.detectedLanguage;
         }
 
         if (detected) {
@@ -359,7 +359,7 @@ async function executeTranslation() {
 }
 
 translateBtn.addEventListener('click', () => {
-    executeTranslation().catch(() => {});
+    executeTranslation().catch(() => { });
 });
 
 // --- Camera OCR Logic ---
@@ -427,11 +427,11 @@ captureBtn.addEventListener('click', async () => {
 
         inputEl.value = extractedText;
         charCountEl.textContent = extractedText.length;
-        
+
         captureBtnLabel.innerHTML = '<div class="spinner" style="border-top-color:#fff"></div>&nbsp;Translating…';
-        
+
         const results = await executeTranslation();
-        
+
         if (results && results.length > 0) {
             cameraOverlayText.textContent = results[0].translation;
             if (results[1]) {
@@ -464,7 +464,7 @@ imageUpload.addEventListener('change', (e) => {
     const reader = new FileReader();
     reader.onload = async (event) => {
         const base64Image = event.target.result;
-        
+
         // Show loading state
         const originalIcon = uploadBtn.textContent;
         uploadBtn.innerHTML = '<div class="spinner" style="width:14px;height:14px;border-width:2px;display:inline-block"></div>';
@@ -493,7 +493,7 @@ imageUpload.addEventListener('change', (e) => {
             // Put text in source input
             inputEl.value = extractedText;
             charCountEl.textContent = extractedText.length;
-            
+
             // Automatically trigger translation
             await executeTranslation();
 
