@@ -5,16 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Translator</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="index.css">
   <script src="script.js" defer></script>
 </head>
 <body>
+<!-- Animated Background Elements -->
+<div class="bg-glow orb-1"></div>
+<div class="bg-glow orb-2"></div>
+<div class="bg-glow orb-3"></div>
+
 <div class="container">
 
   <header>
-    <h1>Trans<em>lator</em></h1>
-    <p>Microsoft Azure · Cognitive Services</p>
+    <div class="header-content">
+      <h1>Trans<em>lator</em></h1>
+      <p>Microsoft Azure · Cognitive Services</p>
+    </div>
+    <button id="historyBtn" class="history-btn" title="View History">⏱ History</button>
   </header>
 
   <div class="lang-bar">
@@ -72,6 +81,9 @@
       <option value="sv">Swedish</option>
       <option value="el">Greek</option>
     </select>
+
+    <button class="icon-btn compare-btn" id="addCompareBtn" title="Add comparison language">➕</button>
+    <select id="tgtLang2" class="hidden"></select>
   </div>
 
   <div class="panels">
@@ -85,6 +97,9 @@
       <div class="panel-foot">
         <span class="char-count"><span id="charCount">0</span> / 5000</span>
         <div class="foot-actions">
+            <button class="icon-btn" id="uploadBtn" title="Upload Image for OCR">📁</button>
+            <input type="file" id="imageUpload" accept="image/*" class="hidden">
+            <button class="icon-btn" id="cameraBtn" title="Translate from Camera">📷</button>
             <button class="icon-btn" id="micBtn" title="Speak to Translate">🎤</button>
             <button class="icon-btn" id="copyInputBtn" title="Copy">⎘</button>
           <button class="icon-btn" id="clearBtn" title="Clear">✕</button>
@@ -101,8 +116,25 @@
       <div class="panel-foot">
         <span></span>
         <div class="foot-actions">
-          <button class="icon-btn" id="copyBtn" title="Copy">⎘</button>
+          <button class="icon-btn" id="downloadBtn" title="Download .txt">📥</button>
+          <button class="icon-btn" id="copyBtn" title="Smart Copy">⎘</button>
           <button class="icon-btn" id="speakBtn" title="Read aloud">▶</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Secondary Output panel -->
+    <div class="panel hidden" id="tgtPanel2">
+      <div class="panel-head">
+        <span class="label">Translation 2</span>
+      </div>
+      <div class="output-area empty" id="outputText2">Translation will appear here…</div>
+      <div class="panel-foot">
+        <span></span>
+        <div class="foot-actions">
+          <button class="icon-btn" id="downloadBtn2" title="Download .txt">📥</button>
+          <button class="icon-btn" id="copyBtn2" title="Smart Copy">⎘</button>
+          <button class="icon-btn" id="speakBtn2" title="Read aloud">▶</button>
         </div>
       </div>
     </div>
@@ -114,5 +146,38 @@
   <div class="status" id="status"></div>
 
 </div>
+
+<!-- History Sidebar -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<aside id="historySidebar" class="history-sidebar">
+  <div class="history-head">
+    <h3>Recent Translations</h3>
+    <button class="icon-btn" id="closeHistoryBtn" title="Close">✕</button>
+  </div>
+  <div class="history-list" id="historyList">
+    <!-- History items injected here -->
+  </div>
+</aside>
+
+<!-- Camera Modal -->
+<div class="camera-overlay hidden" id="cameraOverlay">
+  <div class="camera-modal">
+    <div class="camera-head">
+      <h3>Camera OCR</h3>
+      <button class="icon-btn" id="closeCameraBtn" title="Close">✕</button>
+    </div>
+    <div class="camera-body">
+      <video id="cameraVideo" autoplay playsinline></video>
+      <canvas id="cameraCanvas" class="hidden"></canvas>
+      <div id="cameraOverlayText" class="camera-overlay-text hidden"></div>
+    </div>
+    <div class="camera-foot">
+      <button class="translate-btn" id="captureBtn">
+        <span id="captureBtnLabel">Capture & Translate</span>
+      </button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
